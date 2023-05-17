@@ -9,7 +9,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler()
 async def echo_bot(message : types.Message):
-    #await message.answer(message.text)
+    await message.answer(message.text)
     #await message.reply(message.text)
     #await bot.send_message(message.from_user.id, message.text)
 
