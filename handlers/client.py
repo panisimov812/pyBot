@@ -1,10 +1,10 @@
 from aiogram import types, Dispatcher
 from create_bot import dp, bot
-
+from keyboards import kb_client
 
 async def command_start(message: types.Message):
     try:
-        await bot.send_message(message.from_user.id, 'Приятного аппетита')  # ответ пишем в лс
+        await bot.send_message(message.from_user.id, 'Приятного аппетита', reply_markup=kb_client)  # ответ пишем в лс
         await message.delete()
     except:
         await message.reply('Общение с ботом через ЛС, напишите ему \nhttps://t.me/zarplataokbot')
