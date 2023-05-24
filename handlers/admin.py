@@ -31,6 +31,17 @@ async def cm_start(message: types.Message):
         await message.reply('Загрузите фото')
 
 
+# @dp.message_handler(state="*", commands='Отмена')
+# @dp.message_handler(Text(equals='отмена', ignore_case=True), state="*")
+async def cancel_handler(message: types.Message, state: FSMContext):
+    if message.from_user.id == ID:
+        current_state = await state.get_state()
+        if current_state is None:
+            return
+        await state.finish()
+        await message.reply('OK')
+
+
 # Ловим первый ответ и пишем словарь
 async def load_photo(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
@@ -67,17 +78,15 @@ async def load_price(message: types.Message, state: FSMContext):
             await message.reply(str(data))
         await state.finish()
 
+#хендлер который парсит сообщения и ищет в них слова
+@dp.message_handler(lambda message: 'Петр' in message.text)
+async def name_petr(message: types.Message):
+    await message.answer('Петр это имя создателя')
 
-# @dp.message_handler(state="*", commands='Отмена')
-# @dp.message_handler(Text(equals='отмена', ignore_case=True), state="*")
-async def cancel_handler(message: types.Message, state: FSMContext):
-    if message.from_user.id == ID:
-        current_state = await state.get_state()
-        if current_state is None:
-            return
-        await state.finish()
-        await message.reply('OK')
-
+#парсит строку с ее начла
+#@dp.message_handler(lambda message: message.text.startswith('такси'))
+#async def taxi_parse(message: types.Message):
+ #   await message.answer(message.text[6:])
 
 # регестрируем хендлеры
 def register_handler_admin(dp: Dispatcher):
