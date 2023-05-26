@@ -1,12 +1,12 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton  # , ReplyKeyboardRemove
 
-btnOpenHours = KeyboardButton('/Режим_работы')
-btnLocation = KeyboardButton('/Расположение')
-btnMenu = KeyboardButton('/Меню')
-# btnContact = KeyboardButton('/Контакты', request_contact=True)
-# btnMyLocation = KeyboardButton('/Поделиться где я',request_location=True)
+btn_open_hours = KeyboardButton('/Режим_работы')
+btn_location = KeyboardButton('/Расположение')
+btn_menu = KeyboardButton('/Меню')
+# btn_contact = KeyboardButton('/Контакты', request_contact=True)
+# btn_myLocation = KeyboardButton('/Поделиться где я',request_location=True)
 
 kb_client = ReplyKeyboardMarkup(resize_keyboard=True)
-kb_client.add(btnOpenHours).add(btnLocation).insert(btnMenu)  # .row(btnContact,btnMyLocation)
-# kb_client.add(btnOpenHours).add(btnLocation).add(btnMenu)  #расположение друг под другом
-# kb_client.row(btnMenu,btnLocation,btnOpenHours)            #расположение в строку
+kb_client.add(btn_open_hours).add(btn_location).insert(btn_menu)  # .row(btn_contact,btn_myLocation)
+# kb_client.add(btn_open_hours).add(btn_location).add(btn_menu)  #расположение друг под другом
+# kb_client.row(btn_menu,btn_location,btn_open_hours)            #расположение в строку

@@ -3,6 +3,8 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram import types, Dispatcher
 from create_bot import dp, bot
 from aiogram.dispatcher.filters import Text
+from data_base import sqlite_db
+from keyboards import admin_kb
 
 ID = None
 
@@ -20,7 +22,7 @@ class FSMAdmin(StatesGroup):
 async def make_change_command(message: types.Message):
     global ID
     ID = message.from_user.id
-    await bot.send_message(message.from_user.id, 'Добрый день, админ панель на связи')  # , reply_markup=btn_case_admin
+    await bot.send_message(message.from_user.id, 'Добрый день, админ панель на связи',reply_markup=admin_kb.btn_case_admin)
     await message.delete()
 
 
@@ -73,20 +75,20 @@ async def load_price(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
             data['price'] = float(message.text)
-
-        async with state.proxy() as data:
-            await message.reply(str(data))
+        await sqlite_db.sql_add_command(state)
         await state.finish()
 
-#хендлер который парсит сообщения и ищет в них слова
-@dp.message_handler(lambda message: 'Петр' in message.text)
-async def name_petr(message: types.Message):
-    await message.answer('Петр это имя создателя')
 
-#парсит строку с ее начла
-#@dp.message_handler(lambda message: message.text.startswith('такси'))
-#async def taxi_parse(message: types.Message):
- #   await message.answer(message.text[6:])
+# хендлер который парсит сообщения и ищет в них слова
+# @dp.message_handler(lambda message: 'Петр' in message.text)
+# async def name_petr(message: types.Message):
+#     await message.answer('Петр это имя создателя')
+
+
+# парсит строку с ее начла
+# @dp.message_handler(lambda message: message.text.startswith('такси'))
+# async def taxi_parse(message: types.Message):
+#   await message.answer(message.text[6:])
 
 # регестрируем хендлеры
 def register_handler_admin(dp: Dispatcher):
